@@ -12,11 +12,19 @@ Public Class settings
     End Sub
 
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+        settingsreload
+    End Sub
+
+    Public Sub settingsreload()
         If CheckBox2.Checked = True Then
             My.Settings.debug = True
             Form1.Label1.Visible = True
             Form1.Timer1.Start()
             Button1.Visible = True
+            Form1.ListBox1.Visible = True
+            Form1.ListBox2.Visible = True
+            Form1.ListBox3.Visible = True
+            Form1.ListBox4.Visible = True
             Button2.Visible = True
             My.Settings.Save()
         Else
@@ -25,6 +33,10 @@ Public Class settings
             Form1.Label1.Visible = False
             Button1.Visible = False
             Button2.Visible = False
+            Form1.ListBox1.Visible = False
+            Form1.ListBox2.Visible = False
+            Form1.ListBox3.Visible = False
+            Form1.ListBox4.Visible = False
             My.Settings.Save()
         End If
     End Sub
@@ -64,7 +76,7 @@ Public Class settings
                 writer.WriteStartAttribute("iconfromexe")
                 writer.WriteString(CheckBox3.Checked)
                 writer.WriteEndAttribute()
-                If CheckBox3.Checked = True Then
+                If CheckBox3.Checked = False Then
                     If OpenFileDialog2.ShowDialog = DialogResult.OK Then
                         writer.WriteStartAttribute("iconfilename")
                         writer.WriteString(OpenFileDialog2.FileName)
@@ -76,9 +88,22 @@ Public Class settings
                     writer.Close()
                     dialog.ukaz("Created game. ", My.Resources.info, "Done!", False)
                 End If
-            End If
+            Form1.games()
+            Form1.moveright(Form1.currentindex)
+        End If
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        colordialog.ShowDialog()
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        My.Computer.FileSystem.DeleteDirectory("games", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Try
+            MkDir("games")
+        Catch ex As Exception
+        End Try
+        Form1.games()
+            Form1.moveright(Form1.currentindex)
     End Sub
 End Class

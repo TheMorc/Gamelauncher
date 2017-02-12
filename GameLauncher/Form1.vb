@@ -4,25 +4,21 @@ Imports System.Xml
 
 Public Class Form1
     Dim newest As Boolean
-    Dim verzia As String = 0.8
+    Dim verzia As String = 0.9
     Dim newestver As String
-    Dim currentindex = 0
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public currentindex = 0
+    Public Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            MkDir("games")
+        Catch ex As Exception
+        End Try
         If My.Settings.nonanimode = True Then
 
             settings.CheckBox1.Checked = True
         Else
             settings.CheckBox1.Checked = False
         End If
-        If My.Settings.debug = True Then
-            Timer1.Start()
-            Label1.Visible = True
-            settings.CheckBox2.Checked = True
-        Else
-            Timer1.Stop()
-            Label1.Visible = False
-            settings.CheckBox2.Checked = False
-        End If
+        settings.settingsreload()
         Dim address As String = "https://raw.githubusercontent.com/TheMorc/Gamelauncher/master/GameLauncher/version.txt"
         Dim client As WebClient = New WebClient()
         Dim reader As StreamReader = New StreamReader(client.OpenRead(address))
@@ -33,22 +29,31 @@ Public Class Form1
             newest = False
             dialog.ukaz("There's a new version available: " + newestver + vbNewLine + "You can download it now! Click ▼", My.Resources.info, "New Version!!", True)
         End If
+        games
+        moveright(currentindex)
+    End Sub
+
+    Public Sub games()
         Dim counter = My.Computer.FileSystem.GetFiles("games")
         Dim doc As New XmlDocument
+        ListBox1.Items.Clear()
+        ListBox2.Items.Clear()
+        ListBox3.Items.Clear()
+        ListBox4.Items.Clear()
         For Each game In counter
             doc.Load(game)
             For Each atribut As XmlElement In doc.DocumentElement.GetElementsByTagName("game")
                 'MsgBox(citajxml(atribut, "filename") + citajxml(atribut, "name"))
+
                 ListBox1.Items.Add(citajxml(atribut, "filename"))
                 ListBox3.Items.Add(citajxml(atribut, "iconfromexe"))
                 ListBox4.Items.Add(citajxml(atribut, "iconfilename"))
                 ListBox2.Items.Add(citajxml(atribut, "name"))
             Next atribut
         Next
-        moveright(currentindex)
     End Sub
 
-    Private Sub moveright(center As Integer)
+    Public Sub moveright(center As Integer)
         Try
             If currentindex = ListBox2.Items.Count Then
                 currentindex = 0
@@ -65,7 +70,11 @@ Public Class Form1
                 ListBox4.SelectedIndex = currentindex - 1
             End If
             Label2.Text = ListBox2.SelectedItem
-            PictureBox3.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+            If ListBox3.SelectedItem = "True" Then
+                PictureBox3.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+            Else
+                PictureBox3.Image = Image.FromFile(ListBox4.SelectedItem)
+            End If
             If currentindex + 1 = ListBox1.Items.Count Then
                 ListBox2.SelectedIndex = 0
                 ListBox4.SelectedIndex = 0
@@ -78,7 +87,11 @@ Public Class Form1
                 ListBox4.SelectedIndex = currentindex + 1
             End If
             Label4.Text = ListBox2.SelectedItem
-            PictureBox2.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+            If ListBox3.SelectedItem = "True" Then
+                PictureBox2.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+            Else
+                PictureBox2.Image = Image.FromFile(ListBox4.SelectedItem)
+            End If
             If currentindex = ListBox1.Items.Count Then
                 ListBox2.SelectedIndex = 0
                 ListBox1.SelectedIndex = 0
@@ -92,7 +105,7 @@ Public Class Form1
             End If
             Label3.Text = ListBox2.SelectedItem
             currentindex = currentindex + 1
-            If ListBox3.SelectedItem = "False" Then
+            If ListBox3.SelectedItem = "True" Then
                 PictureBox1.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
             Else
                 PictureBox1.Image = Image.FromFile(ListBox4.SelectedItem)
@@ -100,8 +113,12 @@ Public Class Form1
 
 
         Catch ex As Exception
-            dialog.ukaz("You need to add atleast one game.", My.Resources.err, "Fatal error!", False)
-            MsgBox(ex.Message)
+            If ex.Message = "The path is not of a legal form." Then
+                dialog.ukaz("You need to upgrade gamelist!" + vbNewLine + "If you don't want, it will show this error every time", My.Resources.err, "Fatal error!", False)
+            Else
+
+                dialog.ukaz("You need to add atleast one game.", My.Resources.err, "Fatal error!", False)
+            End If
             settings.Show()
         End Try
 
@@ -140,5 +157,29 @@ Public Class Form1
             dialog.ukaz("Uh Oh! Something happened!", My.Resources.err, "Fatal error!!", False)
         End Try
 
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+        If My.Settings.color = "green" Then
+            Button2.BackColor = Color.LimeGreen
+            Button2.FlatAppearance.MouseDownBackColor = Color.Green
+            Button2.FlatAppearance.MouseOverBackColor = Color.GreenYellow
+        ElseIf My.Settings.color = "red" Then
+            Button2.BackColor = Color.Red
+            Button2.FlatAppearance.MouseDownBackColor = Color.Maroon
+            Button2.FlatAppearance.MouseOverBackColor = Color.IndianRed
+        ElseIf My.Settings.color = "blue" Then
+            Button2.BackColor = Color.DeepSkyBlue
+            Button2.FlatAppearance.MouseDownBackColor = Color.SteelBlue
+            Button2.FlatAppearance.MouseOverBackColor = Color.SkyBlue
+        ElseIf My.Settings.color = "gray" Then
+            Button2.BackColor = Color.Gray
+            Button2.FlatAppearance.MouseDownBackColor = Color.DimGray
+            Button2.FlatAppearance.MouseOverBackColor = Color.LightGray
+        ElseIf My.Settings.color = "yellow" Then
+            Button2.BackColor = Color.Gold
+            Button2.FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod
+            Button2.FlatAppearance.MouseOverBackColor = Color.Khaki
+        End If
     End Sub
 End Class

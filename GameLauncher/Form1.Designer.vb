@@ -40,6 +40,7 @@ Partial Class Form1
         Me.ListBox2 = New System.Windows.Forms.ListBox()
         Me.ListBox3 = New System.Windows.Forms.ListBox()
         Me.ListBox4 = New System.Windows.Forms.ListBox()
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,7 +73,7 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.BackColor = System.Drawing.Color.LimeGreen
+        Me.Button2.BackColor = System.Drawing.Color.Khaki
         Me.Button2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Button2.FlatAppearance.BorderSize = 0
         Me.Button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green
@@ -113,8 +114,8 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label1.Location = New System.Drawing.Point(0, 659)
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label1.Location = New System.Drawing.Point(0, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(0, 22)
         Me.Label1.TabIndex = 2
@@ -124,36 +125,36 @@ Partial Class Form1
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Kozuka Gothic Pro R", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Silver
-        Me.Label2.Location = New System.Drawing.Point(12, 622)
+        Me.Label2.Location = New System.Drawing.Point(6, 581)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(86, 32)
+        Me.Label2.Size = New System.Drawing.Size(198, 76)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Label2"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Kozuka Gothic Pro R", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(440, 611)
+        Me.Label3.Location = New System.Drawing.Point(367, 581)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(115, 43)
+        Me.Label3.Size = New System.Drawing.Size(264, 73)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Label3"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Kozuka Gothic Pro R", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Silver
-        Me.Label4.Location = New System.Drawing.Point(871, 625)
+        Me.Label4.Location = New System.Drawing.Point(783, 581)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(86, 32)
+        Me.Label4.Size = New System.Drawing.Size(174, 76)
         Me.Label4.TabIndex = 5
         Me.Label4.Text = "Label4"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomRight
         '
         'PictureBox1
         '
@@ -169,6 +170,7 @@ Partial Class Form1
         Me.PictureBox2.Location = New System.Drawing.Point(829, 258)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(128, 128)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox2.TabIndex = 7
         Me.PictureBox2.TabStop = False
         '
@@ -177,6 +179,7 @@ Partial Class Form1
         Me.PictureBox3.Location = New System.Drawing.Point(12, 269)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(128, 128)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox3.TabIndex = 8
         Me.PictureBox3.TabStop = False
         '
@@ -185,9 +188,9 @@ Partial Class Form1
         Me.ListBox1.Enabled = False
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.ItemHeight = 22
-        Me.ListBox1.Location = New System.Drawing.Point(12, 26)
+        Me.ListBox1.Location = New System.Drawing.Point(251, 12)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(344, 92)
+        Me.ListBox1.Size = New System.Drawing.Size(344, 26)
         Me.ListBox1.TabIndex = 9
         '
         'ListBox2
@@ -195,9 +198,9 @@ Partial Class Form1
         Me.ListBox2.Enabled = False
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 22
-        Me.ListBox2.Location = New System.Drawing.Point(12, 124)
+        Me.ListBox2.Location = New System.Drawing.Point(251, 44)
         Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(344, 92)
+        Me.ListBox2.Size = New System.Drawing.Size(344, 26)
         Me.ListBox2.TabIndex = 10
         '
         'ListBox3
@@ -205,9 +208,9 @@ Partial Class Form1
         Me.ListBox3.Enabled = False
         Me.ListBox3.FormattingEnabled = True
         Me.ListBox3.ItemHeight = 22
-        Me.ListBox3.Location = New System.Drawing.Point(362, 124)
+        Me.ListBox3.Location = New System.Drawing.Point(601, 44)
         Me.ListBox3.Name = "ListBox3"
-        Me.ListBox3.Size = New System.Drawing.Size(51, 92)
+        Me.ListBox3.Size = New System.Drawing.Size(51, 26)
         Me.ListBox3.TabIndex = 11
         '
         'ListBox4
@@ -215,10 +218,14 @@ Partial Class Form1
         Me.ListBox4.Enabled = False
         Me.ListBox4.FormattingEnabled = True
         Me.ListBox4.ItemHeight = 22
-        Me.ListBox4.Location = New System.Drawing.Point(362, 26)
+        Me.ListBox4.Location = New System.Drawing.Point(601, 12)
         Me.ListBox4.Name = "ListBox4"
-        Me.ListBox4.Size = New System.Drawing.Size(344, 92)
+        Me.ListBox4.Size = New System.Drawing.Size(344, 26)
         Me.ListBox4.TabIndex = 12
+        '
+        'Timer2
+        '
+        Me.Timer2.Enabled = True
         '
         'Form1
         '
@@ -270,4 +277,5 @@ Partial Class Form1
     Friend WithEvents ListBox2 As ListBox
     Friend WithEvents ListBox3 As ListBox
     Friend WithEvents ListBox4 As ListBox
+    Friend WithEvents Timer2 As Timer
 End Class

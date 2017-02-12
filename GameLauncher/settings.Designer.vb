@@ -34,6 +34,7 @@ Partial Class settings
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'CheckBox1
@@ -65,6 +66,8 @@ Partial Class settings
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Checked = True
+        Me.CheckBox3.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox3.Location = New System.Drawing.Point(12, 174)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(115, 17)
@@ -126,11 +129,21 @@ Partial Class settings
         Me.OpenFileDialog2.FileName = "OpenFileDialog1"
         Me.OpenFileDialog2.Filter = "image|*.png|image|*.bmp|image|*.jpg"
         '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(133, 58)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(115, 23)
+        Me.Button5.TabIndex = 8
+        Me.Button5.Text = "reset games"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 261)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.CheckBox3)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.TextBox1)
@@ -158,4 +171,5 @@ Partial Class settings
     Friend WithEvents Button4 As Button
     Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents OpenFileDialog2 As OpenFileDialog
+    Friend WithEvents Button5 As Button
 End Class
