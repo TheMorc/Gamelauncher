@@ -65,6 +65,30 @@ Namespace My
                 Me("nonanimode") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property debug() As Boolean
+            Get
+                Return CType(Me("debug"),Boolean)
+            End Get
+            Set
+                Me("debug") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property games() As Integer
+            Get
+                Return CType(Me("games"),Integer)
+            End Get
+            Set
+                Me("games") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
