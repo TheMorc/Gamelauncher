@@ -7,6 +7,7 @@ Public Class Form1
     Dim verzia As String = 0.9
     Dim newestver As String
     Public currentindex = 0
+    Dim side As String
     Public Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             MkDir("games")
@@ -29,8 +30,8 @@ Public Class Form1
             newest = False
             dialog.ukaz("There's a new version available: " + newestver + vbNewLine + "You can download it now! Click ▼", My.Resources.info, "New Version!!", True)
         End If
-        games
-        moveright(currentindex)
+        games()
+        moveleft(currentindex)
     End Sub
 
     Public Sub games()
@@ -53,12 +54,59 @@ Public Class Form1
         Next
     End Sub
 
+    Public Sub moveleft(center As Integer)
+
+        If currentindex <= -1 Then
+            ListBox2.SelectedIndex = ListBox2.Items.Count - 1
+            ListBox1.SelectedIndex = ListBox2.Items.Count - 1
+            ListBox3.SelectedIndex = ListBox2.Items.Count - 1
+            ListBox4.SelectedIndex = ListBox2.Items.Count - 1
+            currentindex = ListBox2.Items.Count - 1
+        End If
+        Label2.Text = ListBox2.SelectedItem
+        If ListBox3.SelectedItem = "True" Then
+            PictureBox3.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+        Else
+            'PictureBox3.Image = Image.FromFile(ListBox4.SelectedItem)
+        End If
+        If currentindex + 1 = ListBox1.Items.Count Then
+            ListBox2.SelectedIndex = 0
+            ListBox4.SelectedIndex = 0
+            ListBox3.SelectedIndex = 0
+            ListBox1.SelectedIndex = 0
+        End If
+        Label4.Text = ListBox2.SelectedItem
+
+        If ListBox3.SelectedItem = "True" Then
+            PictureBox2.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+        Else
+            PictureBox2.Image = Image.FromFile(ListBox4.SelectedItem)
+        End If
+        If currentindex = ListBox1.Items.Count Then
+            ListBox2.SelectedIndex = 0
+            ListBox1.SelectedIndex = 0
+            ListBox3.SelectedIndex = 0
+            ListBox4.SelectedIndex = 0
+        Else
+            ListBox2.SelectedIndex = currentindex
+            ListBox1.SelectedIndex = currentindex
+            ListBox3.SelectedIndex = currentindex
+            ListBox4.SelectedIndex = currentindex
+        End If
+        Label3.Text = ListBox2.SelectedItem
+        currentindex = currentindex - 1
+        If ListBox3.SelectedItem = "True" Then
+            PictureBox1.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox1.SelectedItem).ToBitmap
+        Else
+            PictureBox1.Image = Image.FromFile(ListBox4.SelectedItem)
+        End If
+    End Sub
     Public Sub moveright(center As Integer)
         Try
             If currentindex = ListBox2.Items.Count Then
                 currentindex = 0
             End If
-            If currentindex - 1 = -1 Then
+            If currentindex - 1 <= 0 Then
                 ListBox2.SelectedIndex = ListBox2.Items.Count - 1
                 ListBox1.SelectedIndex = ListBox2.Items.Count - 1
                 ListBox3.SelectedIndex = ListBox2.Items.Count - 1
@@ -110,20 +158,21 @@ Public Class Form1
             Else
                 PictureBox1.Image = Image.FromFile(ListBox4.SelectedItem)
             End If
-
+            If currentindex <= 0 Then
+                currentindex = 0
+            End If
 
         Catch ex As Exception
             If ex.Message = "The path is not of a legal form." Then
                 dialog.ukaz("You need to upgrade gamelist!" + vbNewLine + "If you don't want, it will show this error every time", My.Resources.err, "Fatal error!", False)
             Else
 
-                dialog.ukaz("You need to add atleast one game.", My.Resources.err, "Fatal error!", False)
+                dialog.ukaz("You need to add atleast one game, or" + vbNewLine + ex.Message, My.Resources.err, "Fatal error!", False)
             End If
             settings.Show()
         End Try
 
     End Sub
-
 
     Private Function citajxml(ByVal node As XmlNode, ByVal attibutename As String) As String
         Dim ret As String = String.Empty
@@ -141,12 +190,17 @@ Public Class Form1
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Label1.Text = My.Settings.nonanimode.ToString + vbNewLine + Width.ToString + "x" + Height.ToString + vbNewLine + verzia + vbNewLine + newest.ToString + " " + newestver
+        Label1.Text = My.Settings.nonanimode.ToString + vbNewLine + Width.ToString + "x" + Height.ToString + vbNewLine + verzia + vbNewLine + newest.ToString + " " + newestver + vbNewLine + currentindex.ToString + vbNewLine + side
     End Sub
 
     Private Sub Form1_MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
         If e.Delta = 120 Then
             moveright(currentindex)
+            side = "Right"
+        End If
+        If e.Delta = -120 Then
+            moveleft(currentindex)
+            side = "Left"
         End If
     End Sub
 

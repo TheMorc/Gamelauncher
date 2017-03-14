@@ -190,7 +190,7 @@ Partial Class Form1
         Me.ListBox1.ItemHeight = 22
         Me.ListBox1.Location = New System.Drawing.Point(251, 12)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(344, 26)
+        Me.ListBox1.Size = New System.Drawing.Size(344, 114)
         Me.ListBox1.TabIndex = 9
         '
         'ListBox2
@@ -198,9 +198,9 @@ Partial Class Form1
         Me.ListBox2.Enabled = False
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 22
-        Me.ListBox2.Location = New System.Drawing.Point(251, 44)
+        Me.ListBox2.Location = New System.Drawing.Point(308, 132)
         Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(344, 26)
+        Me.ListBox2.Size = New System.Drawing.Size(344, 114)
         Me.ListBox2.TabIndex = 10
         '
         'ListBox3
@@ -208,9 +208,9 @@ Partial Class Form1
         Me.ListBox3.Enabled = False
         Me.ListBox3.FormattingEnabled = True
         Me.ListBox3.ItemHeight = 22
-        Me.ListBox3.Location = New System.Drawing.Point(601, 44)
+        Me.ListBox3.Location = New System.Drawing.Point(251, 132)
         Me.ListBox3.Name = "ListBox3"
-        Me.ListBox3.Size = New System.Drawing.Size(51, 26)
+        Me.ListBox3.Size = New System.Drawing.Size(51, 114)
         Me.ListBox3.TabIndex = 11
         '
         'ListBox4
@@ -220,7 +220,7 @@ Partial Class Form1
         Me.ListBox4.ItemHeight = 22
         Me.ListBox4.Location = New System.Drawing.Point(601, 12)
         Me.ListBox4.Name = "ListBox4"
-        Me.ListBox4.Size = New System.Drawing.Size(344, 26)
+        Me.ListBox4.Size = New System.Drawing.Size(344, 114)
         Me.ListBox4.TabIndex = 12
         '
         'Timer2
